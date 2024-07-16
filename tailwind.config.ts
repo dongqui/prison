@@ -9,10 +9,10 @@ const config: Config = {
   theme: {
     colors: {
       black: {
-        "100": "#0D0D0D",
+        "10": "#0D0D0D",
       },
       gray: {
-        "100": "#181818",
+        "10": "#E6E6E6;",
       },
     },
     extend: {
