@@ -1,9 +1,9 @@
-import Image from "next/image";
+import ArticleList from "./(shared)/containers/ArticleList";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      hi
+    <main className=" min-h-screen p-24">
+      <ArticleList />
     </main>
   );
 }
