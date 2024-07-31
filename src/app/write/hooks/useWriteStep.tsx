@@ -1,9 +1,10 @@
 "use client";
-
 import { atom, useAtom } from "jotai";
 
+import type { WriteStep } from "@/(shared)/types";
+
 interface Step {
-  name: "title" | "content" | "match" | "user";
+  name: WriteStep;
   title: string;
 }
 
@@ -26,8 +27,33 @@ const stepList: Step[] = [
   },
 ];
 
-const _atom = atom<Step>(stepList[0]);
+const _atom = atom<number>(0);
 
-export function useWriteStep() {
-  return useAtom(_atom);
+export function useWriteStep(): {
+  step: Step;
+  goNextStep: () => void;
+  goPreviousStep: () => void;
+} {
+  const [stepOrder, setStepOrder] = useAtom(_atom);
+
+  const isFirstStep = stepOrder === 0;
+  const isLastStep = stepOrder === stepList.length - 1;
+
+  function goNextStep() {
+    if (!isLastStep) {
+      setStepOrder(stepOrder + 1);
+    }
+  }
+
+  function goPreviousStep() {
+    if (!isFirstStep) {
+      setStepOrder(Math.max(0, stepOrder - 1));
+    }
+  }
+
+  return {
+    step: stepList[stepOrder],
+    goNextStep,
+    goPreviousStep,
+  };
 }
